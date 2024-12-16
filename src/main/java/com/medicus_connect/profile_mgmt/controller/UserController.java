@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
 @RestController
-@RequestMapping("/")
+@RequestMapping("/user")
 public class UserController {
+
+
 }
