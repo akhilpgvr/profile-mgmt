@@ -3,9 +3,11 @@ package com.medicus_connect.profile_mgmt.service;
 import com.medicus_connect.profile_mgmt.exception.UserAlreadyExistsException;
 import com.medicus_connect.profile_mgmt.exception.UserNotExistsException;
 import com.medicus_connect.profile_mgmt.model.dtos.Request.CreateUserRequest;
+import com.medicus_connect.profile_mgmt.model.dtos.Response.GetUserResponse;
 import com.medicus_connect.profile_mgmt.model.entitiles.UserEntity;
 import com.medicus_connect.profile_mgmt.repo.UserRepo;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,17 +33,25 @@ public class UserService {
         }
     }
 
+    public GetUserResponse getUserAccount(String mobileNo) {
+
+        log.info("fetching user existence for mobile no: {}", mobileNo);
+        GetUserResponse response = new GetUserResponse();
+        BeanUtils.copyProperties(getUser(mobileNo), response);
+        return response;
+    }
     public String createUserAccount(CreateUserRequest request) {
 
-        log.info("Checking user existence for mobile no: {}", request.getUserInfo());
-        Optional<UserEntity> userRef = userRepo.findByMobileNo(request.getMobileNo());
+        String mobileNo = request.getMobileNo();
+        log.info("Checking user existence for mobile no: {}", mobileNo);
+        Optional<UserEntity> userRef = userRepo.findByMobileNo(mobileNo);
         if(userRef.isPresent()) {
-            throw new UserAlreadyExistsException("User already present for: "+request.getMobileNo());
+            throw new UserAlreadyExistsException("User already present for: "+ mobileNo);
         }
         log.info("Creating user: "+ request.getUserName());
         UserEntity userEntity = new UserEntity();
         userEntity.setUserInfo(request.getUserInfo());
-        userEntity.setMobileNo(request.getMobileNo());
+        userEntity.setMobileNo(mobileNo);
         userEntity.setUserName(request.getUserName());
         userEntity.setPassword(request.getPassword());
         userEntity.setCreatedOn(LocalDateTime.now());
