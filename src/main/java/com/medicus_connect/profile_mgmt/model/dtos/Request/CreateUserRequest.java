@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CreateUserRequest {
 
-    public PersonalInfo userInfo;
+    private String mobileNo;
+    private PersonalInfo userInfo;
 
-    public String userName;
-    public String password;
+    private String userName;
+    private String password;
 }

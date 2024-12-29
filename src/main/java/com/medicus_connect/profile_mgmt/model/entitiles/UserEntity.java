@@ -20,6 +20,7 @@ public class UserEntity {
     @Generated
     public String id;
 
+    public String mobileNo;
     public PersonalInfo userInfo;
 
     public String userName;

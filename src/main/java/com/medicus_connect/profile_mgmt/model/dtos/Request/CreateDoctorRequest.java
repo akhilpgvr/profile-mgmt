@@ -14,6 +14,7 @@ import java.util.List;
 @NoArgsConstructor
 public class CreateDoctorRequest {
 
+    private String mobileNo;
     public PersonalInfo doctorInfo;
     public List<EducationalDetails> educationalDetails;
     public List<ExperienceDetails> experienceDetails;

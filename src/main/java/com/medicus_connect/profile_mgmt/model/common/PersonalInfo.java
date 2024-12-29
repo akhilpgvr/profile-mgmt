@@ -14,7 +14,5 @@ public class PersonalInfo {
     public String dob;
     public Integer age;
     public GenderEnum gender;
-
-    public Integer mobileNo;
     public String email;
 }

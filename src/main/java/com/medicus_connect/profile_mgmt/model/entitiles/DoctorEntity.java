@@ -23,6 +23,7 @@ public class DoctorEntity {
     @Generated
     public String id;
 
+    public String mobileNo;
     public PersonalInfo doctorInfo;
     public List<EducationalDetails> educationalDetails;
     public List<ExperienceDetails> experienceDetails;
