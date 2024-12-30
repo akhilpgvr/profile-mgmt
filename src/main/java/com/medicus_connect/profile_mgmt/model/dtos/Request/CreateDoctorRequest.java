@@ -21,4 +21,5 @@ public class CreateDoctorRequest {
 
     public String userName;
     public String password;
+    public String reEnteredPassword;
 }
