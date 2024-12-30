@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -17,8 +19,8 @@ public class ExperienceDetails {
     public String district;
     public String location;
     public String isCurrentlyWorking;
-    public String startDate;
-    public String endDate;
+    public Date startDate;
+    public Date endDate;
 
 
 

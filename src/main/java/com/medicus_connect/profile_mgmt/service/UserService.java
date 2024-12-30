@@ -75,11 +75,11 @@ public class UserService {
 
         UserEntity user = getUser(mobileNo);
         user.setUserInfo(request.getUserInfo());
-        user.setCreatedOn(LocalDateTime.now());
-        user.setCreatedBy(mobileNo);
-        user.setLastUpdatedOn(LocalDateTime.now());
+
         user.setLastUpdatedBy(mobileNo);
+        user.setLastUpdatedOn(LocalDateTime.now());
         userRepo.save(user);
+        log.info("user account updated for: {}", mobileNo);
         return "Account Updated";
     }
 }

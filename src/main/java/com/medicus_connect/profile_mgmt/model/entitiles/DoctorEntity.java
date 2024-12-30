@@ -24,6 +24,8 @@ public class DoctorEntity {
     public String id;
 
     public String mobileNo;
+    public String haveRegNo;
+    public String regNo;
     public PersonalInfo doctorInfo;
     public List<EducationalDetails> educationalDetails;
     public List<ExperienceDetails> experienceDetails;
