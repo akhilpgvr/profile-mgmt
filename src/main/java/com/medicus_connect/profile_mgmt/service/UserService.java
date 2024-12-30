@@ -1,8 +1,10 @@
 package com.medicus_connect.profile_mgmt.service;
 
+import com.medicus_connect.profile_mgmt.exception.PasswordMissMatchException;
 import com.medicus_connect.profile_mgmt.exception.UserAlreadyExistsException;
 import com.medicus_connect.profile_mgmt.exception.UserNotExistsException;
 import com.medicus_connect.profile_mgmt.model.dtos.Request.CreateUserRequest;
+import com.medicus_connect.profile_mgmt.model.dtos.Request.UpdateUserRequest;
 import com.medicus_connect.profile_mgmt.model.dtos.Response.GetUserResponse;
 import com.medicus_connect.profile_mgmt.model.entitiles.UserEntity;
 import com.medicus_connect.profile_mgmt.repo.UserRepo;
@@ -22,6 +24,8 @@ public class UserService {
     private UserRepo userRepo;
 
     public UserEntity getUser(String mobileNo) {
+
+        log.info("fetching user account for mobile no: {}", mobileNo);
         Optional<UserEntity> userRef = userRepo.findByMobileNo(mobileNo);
         if(userRef.isPresent()){
             log.info("user present for {}", mobileNo);
@@ -35,7 +39,6 @@ public class UserService {
 
     public GetUserResponse getUserAccount(String mobileNo) {
 
-        log.info("fetching user existence for mobile no: {}", mobileNo);
         GetUserResponse response = new GetUserResponse();
         BeanUtils.copyProperties(getUser(mobileNo), response);
         return response;
@@ -43,22 +46,39 @@ public class UserService {
     public String createUserAccount(CreateUserRequest request) {
 
         String mobileNo = request.getMobileNo();
+        log.info("checking password similarity for mobile no: {}", mobileNo);
+        if(!request.getPassword().equals(request.getReEnteredPassword())) {
+            log.error("entered passwords are not similar");
+            throw new PasswordMissMatchException("Password MissMatches");
+        }
         log.info("Checking user existence for mobile no: {}", mobileNo);
         Optional<UserEntity> userRef = userRepo.findByMobileNo(mobileNo);
         if(userRef.isPresent()) {
+            log.error("user exists for the mobile number {}", mobileNo);
             throw new UserAlreadyExistsException("User already present for: "+ mobileNo);
         }
-        log.info("Creating user: "+ request.getUserName());
-        UserEntity userEntity = new UserEntity();
-        userEntity.setUserInfo(request.getUserInfo());
-        userEntity.setMobileNo(mobileNo);
-        userEntity.setUserName(request.getUserName());
-        userEntity.setPassword(request.getPassword());
-        userEntity.setCreatedOn(LocalDateTime.now());
-        userEntity.setCreatedBy(request.getUserName());
-        userEntity.setLastUpdatedOn(LocalDateTime.now());
-        userEntity.setLastUpdatedBy(request.getUserName());
-        userRepo.save(userEntity);
+        log.info("Creating user: {}", request.getUserName());
+        UserEntity user = new UserEntity();
+        user.setUserInfo(request.getUserInfo());
+        user.setMobileNo(mobileNo);
+        user.setUserName(request.getUserName());
+        user.setPassword(request.getPassword());
+        user.setCreatedOn(LocalDateTime.now());
+        user.setCreatedBy(request.getMobileNo());
+        user.setLastUpdatedOn(LocalDateTime.now());
+        user.setLastUpdatedBy(request.getMobileNo());
+        userRepo.save(user);
         return "Account Created";
+    }
+
+    public String updateUserAccount(String mobileNo, UpdateUserRequest request) {
+
+        UserEntity user = getUser(mobileNo);
+        user.setUserInfo(request.getUserInfo());
+        user.setCreatedOn(LocalDateTime.now());
+        user.setCreatedBy(mobileNo);
+        user.setLastUpdatedOn(LocalDateTime.now());
+        user.setLastUpdatedBy(mobileNo);
+        return "Account Updated";
     }
 }
