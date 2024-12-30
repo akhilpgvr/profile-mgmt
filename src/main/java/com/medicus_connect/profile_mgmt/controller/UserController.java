@@ -36,7 +36,7 @@ public class UserController {
     }
 
     @Operation(summary = "Api for updating User", description = "")
-    @GetMapping("/update/user")
+    @PutMapping("/update/user")
     public ResponseEntity<String> updateUserAccount(@RequestParam String mobileNo, @RequestBody UpdateUserRequest updateUserRequest) {
 
         log.info("Calling UserService for updating an account for: {}", mobileNo);

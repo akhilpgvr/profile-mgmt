@@ -79,6 +79,7 @@ public class UserService {
         user.setCreatedBy(mobileNo);
         user.setLastUpdatedOn(LocalDateTime.now());
         user.setLastUpdatedBy(mobileNo);
+        userRepo.save(user);
         return "Account Updated";
     }
 }
