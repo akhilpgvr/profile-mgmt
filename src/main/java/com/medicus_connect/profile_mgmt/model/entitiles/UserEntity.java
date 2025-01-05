@@ -18,16 +18,17 @@ public class UserEntity {
 
     @Id
     @Generated
-    public String id;
+    private String id;
 
-    public String mobileNo;
-    public PersonalInfo userInfo;
+    private String userId;
+    private String mobileNo;
+    private PersonalInfo userInfo;
 
-    public String userName;
-    public String password;
+    private String userName;
+    private String password;
 
-    public LocalDateTime createdOn;
-    public String createdBy;
-    public LocalDateTime lastUpdatedOn;
-    public String lastUpdatedBy;
+    private LocalDateTime createdOn;
+    private String createdBy;
+    private LocalDateTime lastUpdatedOn;
+    private String lastUpdatedBy;
 }
