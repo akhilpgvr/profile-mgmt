@@ -30,8 +30,8 @@ public class DocSlotController {
     }
 
     @Operation(summary = "", description = "")
-    @GetMapping("/get/{month}")
-    public ResponseEntity<List<GetSlotsResponse>> getSlotOfMonth(@RequestParam String mobileNo, @PathVariable int month) {
+    @GetMapping("/get/month")
+    public ResponseEntity<List<GetSlotsResponse>> getSlotOfMonth(@RequestParam String mobileNo, @RequestParam int month) {
 
         log.info("Calling doctorService to get all slot for {}", mobileNo);
         return new ResponseEntity<>(doctorService.getSlotOfMonth(mobileNo, month), HttpStatus.OK);

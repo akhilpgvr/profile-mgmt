@@ -136,12 +136,15 @@ public class DoctorService {
 
     public List<GetSlotsResponse> getSlotOfMonth(String mobileNo, int month) {
 
+        // Get the current year
+        int currentYear = Calendar.getInstance().get(Calendar.YEAR);
+
         // Create a Calendar instance
         Calendar calendar = Calendar.getInstance();
 
-        // Set to the first day of the month
-        calendar.set(Calendar.YEAR, Calendar.YEAR);
-        calendar.set(Calendar.MONTH, month);
+        // Set to the first day of the given month
+        calendar.set(Calendar.YEAR, currentYear); // Correctly set the year
+        calendar.set(Calendar.MONTH, month); // Month is zero-based (0 = January)
         calendar.set(Calendar.DAY_OF_MONTH, 1);
         calendar.set(Calendar.HOUR_OF_DAY, 0);
         calendar.set(Calendar.MINUTE, 0);
@@ -156,13 +159,24 @@ public class DoctorService {
         calendar.set(Calendar.SECOND, 59);
         calendar.set(Calendar.MILLISECOND, 999);
         Date endDate = calendar.getTime();
+
+        // Fetch doctor details
         DoctorEntity doctor = getDoctorByMobileNo(mobileNo);
+        if (doctor == null || doctor.getDoctorId() == null) {
+            throw new IllegalArgumentException("Doctor not found for the given mobile number.");
+        }
+
+        // Build the query
         Query query = new Query();
-        query.addCriteria(Criteria.where("mobileNo").is(mobileNo));
+        query.addCriteria(Criteria.where("doctorId").is(doctor.getDoctorId()));
+        query.addCriteria(Criteria.where("date").gte(startDate).lte(endDate));
 
-        query.addCriteria(Criteria.where("").lte(endDate).gte(startDate));
-
+        // Execute the query
         List<DoctorAvailEntity> docAvailList = mongoTemplate.find(query, DoctorAvailEntity.class);
-        return docAvailList.stream().map(i->modelMapper.map(i, GetSlotsResponse.class)).toList();
+
+        // Map and return the result
+        return docAvailList.stream()
+                .map(i -> modelMapper.map(i, GetSlotsResponse.class))
+                .toList();
     }
 }
