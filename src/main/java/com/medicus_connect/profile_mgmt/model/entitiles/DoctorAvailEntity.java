@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import nonapi.io.github.classgraph.json.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -24,4 +25,10 @@ public class DoctorAvailEntity {
     private int startTime;
     private int endTime;
     private String location;
+
+    private LocalDateTime createdOn;
+    private String createdBy;
+    private LocalDateTime updatedOn;
+    private String updatedBy;
+
 }

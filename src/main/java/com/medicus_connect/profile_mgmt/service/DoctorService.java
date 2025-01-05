@@ -21,6 +21,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -123,11 +124,16 @@ public class DoctorService {
 
     public String addDocSlot(DocSlotRequest request) {
 
-        log.info("checking doctor account using mobile no: {}", request.getMobileNo());
-        DoctorEntity doctor = getDoctorByMobileNo(request.getMobileNo());
+        String mobileNo = request.getMobileNo();
+        log.info("checking doctor account using mobile no: {}", mobileNo);
+        DoctorEntity doctor = getDoctorByMobileNo(mobileNo);
         DoctorAvailEntity docAvail = new DoctorAvailEntity();
         BeanUtils.copyProperties(request, docAvail);
         docAvail.setDoctorId(doctor.getDoctorId());
+        docAvail.setCreatedOn(LocalDateTime.now());
+        docAvail.setCreatedBy(mobileNo);
+        docAvail.setUpdatedOn(LocalDateTime.now());
+        docAvail.setUpdatedBy(mobileNo);
         doctorAvailRepo.save(docAvail);
         log.info("new slot added for: {}", doctor.getDoctorId());
         return "New Slot Added";
