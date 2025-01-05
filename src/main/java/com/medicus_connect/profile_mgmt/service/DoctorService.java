@@ -7,12 +7,13 @@ import com.medicus_connect.profile_mgmt.model.dtos.Request.CreateDoctorRequest;
 import com.medicus_connect.profile_mgmt.model.dtos.Request.DocSlotRequest;
 import com.medicus_connect.profile_mgmt.model.dtos.Request.UpdateDoctorRequest;
 import com.medicus_connect.profile_mgmt.model.dtos.Response.GetDoctorResponse;
+import com.medicus_connect.profile_mgmt.model.dtos.Response.GetSlotsResponse;
 import com.medicus_connect.profile_mgmt.model.entitiles.DoctorAvailEntity;
 import com.medicus_connect.profile_mgmt.model.entitiles.DoctorEntity;
 import com.medicus_connect.profile_mgmt.repo.DoctorAvailRepo;
 import com.medicus_connect.profile_mgmt.repo.DoctorRepo;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -21,6 +22,8 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,6 +41,9 @@ public class DoctorService {
 
     @Autowired
     private MongoTemplate mongoTemplate;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     //------------------------------------Profile Services-----------------------------------
 
@@ -128,14 +134,35 @@ public class DoctorService {
     }
 
 
-    public String getSlotOfMonth(String mobileNo, String month) {
+    public List<GetSlotsResponse> getSlotOfMonth(String mobileNo, int month) {
 
+        // Create a Calendar instance
+        Calendar calendar = Calendar.getInstance();
+
+        // Set to the first day of the month
+        calendar.set(Calendar.YEAR, Calendar.YEAR);
+        calendar.set(Calendar.MONTH, month);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date startDate = calendar.getTime();
+
+        // Set to the last day of the month
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.getActualMaximum(Calendar.DAY_OF_MONTH));
+        calendar.set(Calendar.HOUR_OF_DAY, 23);
+        calendar.set(Calendar.MINUTE, 59);
+        calendar.set(Calendar.SECOND, 59);
+        calendar.set(Calendar.MILLISECOND, 999);
+        Date endDate = calendar.getTime();
         DoctorEntity doctor = getDoctorByMobileNo(mobileNo);
         Query query = new Query();
-        query.addCriteria(Criteria.where("").is(mobileNo));
-//        query.addCriteria(Criteria.where("").lte(new Data[]).gte());
-        List<DoctorAvailEntity> docAvailList = mongoTemplate.find(query, DoctorAvailEntity.class);
+        query.addCriteria(Criteria.where("mobileNo").is(mobileNo));
 
-        return "";
+        query.addCriteria(Criteria.where("").lte(endDate).gte(startDate));
+
+        List<DoctorAvailEntity> docAvailList = mongoTemplate.find(query, DoctorAvailEntity.class);
+        return docAvailList.stream().map(i->modelMapper.map(i, GetSlotsResponse.class)).toList();
     }
 }

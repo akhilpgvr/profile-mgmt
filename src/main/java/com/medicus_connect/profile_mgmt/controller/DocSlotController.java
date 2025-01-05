@@ -1,6 +1,7 @@
 package com.medicus_connect.profile_mgmt.controller;
 
 import com.medicus_connect.profile_mgmt.model.dtos.Request.DocSlotRequest;
+import com.medicus_connect.profile_mgmt.model.dtos.Response.GetSlotsResponse;
 import com.medicus_connect.profile_mgmt.service.DoctorService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -28,7 +31,7 @@ public class DocSlotController {
 
     @Operation(summary = "", description = "")
     @GetMapping("/get/{month}")
-    public ResponseEntity<String> getSlotOfMonth(@RequestParam String mobileNo, @PathVariable String month) {
+    public ResponseEntity<List<GetSlotsResponse>> getSlotOfMonth(@RequestParam String mobileNo, @PathVariable int month) {
 
         log.info("Calling doctorService to get all slot for {}", mobileNo);
         return new ResponseEntity<>(doctorService.getSlotOfMonth(mobileNo, month), HttpStatus.OK);
@@ -37,7 +40,7 @@ public class DocSlotController {
     @Operation(summary = "", description = "")
     @DeleteMapping("/delete")
     public ResponseEntity<String> deleteSlot(@RequestParam String mobileNo){
-        log.info("Calling doctorService to get all slot for {}", mobileNo);
+        log.info("Calling doctorService to delete a slot for {}", mobileNo);
         return new ResponseEntity<>("", HttpStatus.OK);
     }
 }
