@@ -1,7 +1,7 @@
 package com.medicus_connect.profile_mgmt.controller;
 
-import com.medicus_connect.profile_mgmt.model.dtos.Request.DocSlotRequest;
-import com.medicus_connect.profile_mgmt.model.dtos.Response.GetSlotsResponse;
+import com.medicus_connect.profile_mgmt.model.dtos.request.DocSlotRequest;
+import com.medicus_connect.profile_mgmt.model.dtos.response.GetSlotsResponse;
 import com.medicus_connect.profile_mgmt.service.DoctorService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;

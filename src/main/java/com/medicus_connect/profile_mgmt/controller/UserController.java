@@ -1,8 +1,8 @@
 package com.medicus_connect.profile_mgmt.controller;
 
-import com.medicus_connect.profile_mgmt.model.dtos.Request.CreateUserRequest;
-import com.medicus_connect.profile_mgmt.model.dtos.Request.UpdateUserRequest;
-import com.medicus_connect.profile_mgmt.model.dtos.Response.GetUserResponse;
+import com.medicus_connect.profile_mgmt.model.dtos.request.CreateUserRequest;
+import com.medicus_connect.profile_mgmt.model.dtos.request.UpdateUserRequest;
+import com.medicus_connect.profile_mgmt.model.dtos.response.GetUserResponse;
 import com.medicus_connect.profile_mgmt.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;

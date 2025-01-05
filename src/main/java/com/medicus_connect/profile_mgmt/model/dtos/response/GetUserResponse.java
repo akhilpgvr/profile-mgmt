@@ -1,4 +1,4 @@
-package com.medicus_connect.profile_mgmt.model.dtos.Response;
+package com.medicus_connect.profile_mgmt.model.dtos.response;
 
 import com.medicus_connect.profile_mgmt.model.common.PersonalInfo;
 import lombok.AllArgsConstructor;

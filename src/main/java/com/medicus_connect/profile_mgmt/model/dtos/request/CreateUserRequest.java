@@ -1,4 +1,4 @@
-package com.medicus_connect.profile_mgmt.model.dtos.Request;
+package com.medicus_connect.profile_mgmt.model.dtos.request;
 
 import com.medicus_connect.profile_mgmt.model.common.PersonalInfo;
 import lombok.AllArgsConstructor;
@@ -8,7 +8,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateUserRequest {
+public class CreateUserRequest {
 
+    private String mobileNo;
     private PersonalInfo userInfo;
+
+    private String userName;
+    private String password;
+    private String reEnteredPassword;
 }

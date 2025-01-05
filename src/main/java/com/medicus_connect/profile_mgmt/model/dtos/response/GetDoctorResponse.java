@@ -1,4 +1,4 @@
-package com.medicus_connect.profile_mgmt.model.dtos.Request;
+package com.medicus_connect.profile_mgmt.model.dtos.response;
 
 import com.medicus_connect.profile_mgmt.model.common.EducationalDetails;
 import com.medicus_connect.profile_mgmt.model.common.ExperienceDetails;
@@ -12,11 +12,13 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateDoctorRequest {
+public class GetDoctorResponse {
 
-    public String haveRegNo;
-    public String regNo;
+    public String mobileNo;
     public PersonalInfo doctorInfo;
     public List<EducationalDetails> educationalDetails;
     public List<ExperienceDetails> experienceDetails;
+
+    public String userName;
+    public String password;
 }

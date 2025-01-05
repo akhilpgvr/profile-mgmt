@@ -1,6 +1,5 @@
-package com.medicus_connect.profile_mgmt.model.dtos.Request;
+package com.medicus_connect.profile_mgmt.model.dtos.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,10 +9,9 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class DocSlotRequest {
+public class GetSlotsResponse {
 
-    @JsonIgnore
-    private String mobileNo;
+    private String doctorId;
     private Date date;
     private int startTime;
     private int endTime;
