@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import static com.medicus_connect.profile_mgmt.Helper.generateUserId;
+
 @Slf4j
 @Service
 public class UserService {
@@ -59,6 +61,7 @@ public class UserService {
         }
         log.info("Creating user: {}", request.getUserName());
         UserEntity user = new UserEntity();
+        user.setUserId(generateUserId(mobileNo));
         user.setUserInfo(request.getUserInfo());
         user.setMobileNo(mobileNo);
         user.setUserName(request.getUserName());

@@ -21,20 +21,22 @@ public class DoctorEntity {
 
     @Id
     @Generated
-    public String id;
+    private String id;
 
-    public String mobileNo;
-    public String haveRegNo;
-    public String regNo;
-    public PersonalInfo doctorInfo;
-    public List<EducationalDetails> educationalDetails;
-    public List<ExperienceDetails> experienceDetails;
+    private String doctorId;
+    private String mobileNo;
+    private String department; //one time value -- cannot be updated
+    private String haveRegNo;
+    private String regNo;
+    private PersonalInfo doctorInfo;
+    private List<EducationalDetails> educationalDetails;
+    private List<ExperienceDetails> experienceDetails;
 
-    public String userName;
-    public String password;
+    private String userName;
+    private String password;
 
-    public LocalDateTime createdOn;
-    public String createdBy;
-    public LocalDateTime lastUpdatedOn;
-    public String lastUpdatedBy;
+    private LocalDateTime createdOn;
+    private String createdBy;
+    private LocalDateTime lastUpdatedOn;
+    private String lastUpdatedBy;
 }

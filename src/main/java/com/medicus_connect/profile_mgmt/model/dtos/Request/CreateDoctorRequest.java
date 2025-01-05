@@ -15,6 +15,7 @@ import java.util.List;
 public class CreateDoctorRequest {
 
     private String mobileNo;
+    private String department;
     public String haveRegNo;
     public String regNo;
     public PersonalInfo doctorInfo;
