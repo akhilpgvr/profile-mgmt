@@ -21,6 +21,7 @@ public class DoctorAvailEntity {
     private String id;
 
     private String doctorId;
+    private String department;
     private Date date;
     private int startTime;
     private int endTime;

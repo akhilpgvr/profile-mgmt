@@ -129,6 +129,7 @@ public class DoctorService {
         DoctorAvailEntity docAvail = new DoctorAvailEntity();
         BeanUtils.copyProperties(request, docAvail);
         docAvail.setDoctorId(doctor.getDoctorId());
+        docAvail.setDepartment(doctor.getDepartment());
         docAvail.setCreatedOn(LocalDateTime.now());
         docAvail.setCreatedBy(mobileNo);
         docAvail.setUpdatedOn(LocalDateTime.now());
