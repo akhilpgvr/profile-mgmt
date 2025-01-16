@@ -11,4 +11,5 @@ public interface UserRepo extends MongoRepository<UserEntity, String> {
 
     Optional<UserEntity> findByMobileNo(String mobileNo);
 
+    Optional<UserEntity> findByUserId(String userId);
 }

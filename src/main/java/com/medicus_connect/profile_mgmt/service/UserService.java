@@ -9,6 +9,7 @@ import com.medicus_connect.profile_mgmt.model.dtos.response.GetUserResponse;
 import com.medicus_connect.profile_mgmt.model.entitiles.UserEntity;
 import com.medicus_connect.profile_mgmt.repo.UserRepo;
 import lombok.extern.slf4j.Slf4j;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,10 @@ public class UserService {
     @Autowired
     private UserRepo userRepo;
 
-    public UserEntity getUser(String mobileNo) {
+    @Autowired
+    private ModelMapper modelMapper;
+
+    public UserEntity getUserByMobileNo(String mobileNo) {
 
         log.info("fetching user account for mobile no: {}", mobileNo);
         Optional<UserEntity> userRef = userRepo.findByMobileNo(mobileNo);
@@ -38,11 +42,25 @@ public class UserService {
             throw new UserNotExistsException("User not present for: "+ mobileNo);
         }
     }
+    public UserEntity getUserByUserId(String userId) {
 
-    public GetUserResponse getUserAccount(String mobileNo) {
+        log.info("fetching user account for userId: {}", userId);
+        Optional<UserEntity> userRef = userRepo.findByUserId(userId);
+        if(userRef.isPresent()){
+            log.info("user present for {}", userId);
+            return userRef.get();
+        }
+        else {
+            log.error("user not present for {}", userId);
+            throw new UserNotExistsException("User not present for: "+ userId);
+        }
+    }
+
+    public GetUserResponse getUserAccount(boolean isMobileNo, String mobileNo, String userId) {
 
         GetUserResponse response = new GetUserResponse();
-        BeanUtils.copyProperties(getUser(mobileNo), response);
+        if(isMobileNo) BeanUtils.copyProperties(getUserByMobileNo(mobileNo), response);
+        else BeanUtils.copyProperties(getUserByUserId(userId), response);
         return response;
     }
     public String createUserAccount(CreateUserRequest request) {
@@ -76,7 +94,7 @@ public class UserService {
 
     public String updateUserAccount(String mobileNo, UpdateUserRequest request) {
 
-        UserEntity user = getUser(mobileNo);
+        UserEntity user = getUserByMobileNo(mobileNo);
         user.setUserInfo(request.getUserInfo());
 
         user.setLastUpdatedBy(mobileNo);

@@ -32,7 +32,7 @@ public class UserController {
     public ResponseEntity<GetUserResponse> getUserAccount(@RequestParam String mobileNo) {
 
         log.info("Calling UserService for fetching an account for: {}", mobileNo);
-        return new ResponseEntity<>(userService.getUserAccount(mobileNo), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getUserAccount(true, mobileNo, null), HttpStatus.OK);
     }
 
     @Operation(summary = "Api for updating User", description = "")
