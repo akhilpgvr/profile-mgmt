@@ -1,10 +1,10 @@
-package com.medicus_connect.profile_mgmt;
+package com.medicus_connect.doctor_booking;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ProfileMgmtApplicationTests {
+class DoctorBookingApplicationTests {
 
 	@Test
 	void contextLoads() {
