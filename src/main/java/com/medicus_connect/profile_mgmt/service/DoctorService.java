@@ -61,6 +61,20 @@ public class DoctorService {
         }
     }
 
+    public DoctorEntity getDoctorByDoctorId(String doctorId) {
+
+        log.info("fetching doctor account for doctorId : {}", doctorId);
+        Optional<DoctorEntity> doctorRef = doctorRepo.findByDoctorId(doctorId);
+        if(doctorRef.isPresent()){
+            log.info("doctor present for {}", doctorId);
+            return doctorRef.get();
+        }
+        else {
+            log.error("doctor not present for {}", doctorId);
+            throw new DoctorNotExistsException("doctor not present for: "+ doctorId);
+        }
+    }
+
     public String createDoctorAccount(CreateDoctorRequest request) {
 
         String mobileNo = request.getMobileNo();
@@ -94,10 +108,11 @@ public class DoctorService {
         return "Account Created";
     }
 
-    public GetDoctorResponse getDoctorAccount(String mobileNo) {
+    public GetDoctorResponse getDoctorAccount(boolean isMobileNo, String mobileNo, String doctorId) {
 
         GetDoctorResponse response = new GetDoctorResponse();
-        BeanUtils.copyProperties(getDoctorByMobileNo(mobileNo), response);
+        if(isMobileNo) BeanUtils.copyProperties(getDoctorByMobileNo(mobileNo), response);
+        else BeanUtils.copyProperties(getDoctorByDoctorId(doctorId), response);
         return response;
     }
 

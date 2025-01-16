@@ -32,7 +32,7 @@ public class DoctorController {
     public ResponseEntity<GetDoctorResponse> getDoctorAccount(@RequestParam String mobileNo) {
 
         log.info("Calling DoctorService for fetching an account for: {}", mobileNo);
-        return new ResponseEntity<>(doctorService.getDoctorAccount(mobileNo), HttpStatus.OK);
+        return new ResponseEntity<>(doctorService.getDoctorAccount(true, mobileNo, null), HttpStatus.OK);
     }
 
     @Operation(summary = "Api for updating doctor", description = "")
