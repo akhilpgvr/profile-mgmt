@@ -1,4 +1,4 @@
-package com.medicus_connect.doctor_booking.configuration;
+package com.medicus_connect.profile_mgmt.configuration;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;
