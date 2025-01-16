@@ -1,21 +1,19 @@
-package com.medicus_connect.doctor_booking.model.dtos.request;
+package com.medicus_connect.profile_mgmt.model.dtos.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookAppointmentRequest {
+public class GetSlotsResponse {
 
-    private String userId;
-    private String patientName;
     private String doctorId;
-    private Date bookingDate;
+    private Date date;
     private int startTime;
     private int endTime;
+    private String location;
 }
