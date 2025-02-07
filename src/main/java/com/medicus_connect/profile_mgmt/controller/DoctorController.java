@@ -19,8 +19,9 @@ public class DoctorController {
     @Autowired
     private DoctorService doctorService;
 
+    //Todo Akhil -- signin endpoint
     @Operation(summary = "Api for creating doctor", description = "")
-    @PostMapping("/create")
+    @PostMapping("/signup")
     public ResponseEntity<String> createDoctorAccount(@RequestBody CreateDoctorRequest createDoctorRequest) {
 
         log.info("Calling DoctorService for creating an account");

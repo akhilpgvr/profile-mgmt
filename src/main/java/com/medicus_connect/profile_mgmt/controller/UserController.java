@@ -19,8 +19,10 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    //Todo Akhil -- signin endpoint
+
     @Operation(summary = "Api for creating User", description = "")
-    @PostMapping("/create")
+    @PostMapping("/signup")
     public ResponseEntity<String> createUserAccount(@RequestBody CreateUserRequest createUserRequest) {
 
         log.info("Calling UserService for creating an account");
