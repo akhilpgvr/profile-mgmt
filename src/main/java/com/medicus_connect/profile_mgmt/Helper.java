@@ -12,10 +12,10 @@ public class Helper {
     }
 
     public static String generateDocId(String mobileNo) {
-        return "MEDCONN-USER-"+LocalDateTime.now().getYear()+mobileNo;
+        return "MEDCONN-DOC-"+LocalDateTime.now().getYear()+mobileNo;
     }
 
     public static String generateUserId(String mobileNo) {
-        return "MEDCONN-DOC-"+LocalDateTime.now().getYear()+mobileNo;
+        return "MEDCONN-USER-"+LocalDateTime.now().getYear()+mobileNo;
     }
 }
