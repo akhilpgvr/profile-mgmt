@@ -21,7 +21,4 @@ public class GetDoctorResponse {
     public PersonalInfo doctorInfo;
     public List<EducationalDetails> educationalDetails;
     public List<ExperienceDetails> experienceDetails;
-
-    public String userName;
-    public String password;
 }

@@ -2,6 +2,7 @@ package com.medicus_connect.profile_mgmt.controller;
 
 import com.medicus_connect.profile_mgmt.model.dtos.request.CreateUserRequest;
 import com.medicus_connect.profile_mgmt.model.dtos.request.UpdateUserRequest;
+import com.medicus_connect.profile_mgmt.model.dtos.response.GetDoctorResponse;
 import com.medicus_connect.profile_mgmt.model.dtos.response.GetUserResponse;
 import com.medicus_connect.profile_mgmt.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -10,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -35,6 +38,15 @@ public class UserController {
 
         log.info("Calling UserService for fetching an account for: {}", mobileNo);
         return new ResponseEntity<>(userService.getUserAccount(true, mobileNo, null), HttpStatus.OK);
+    }
+
+    @Operation(summary = "Api for getting Doctor list to users", description = "")
+    @GetMapping("/get/doctor-list")
+    public ResponseEntity<List<GetDoctorResponse>> getDoctorsList() {
+
+        //TODO Akhil -- add request including specialization, location and other details
+        log.info("Calling UserService for fetching all doctors");
+        return new ResponseEntity<>(userService.getDoctorsList(), HttpStatus.OK);
     }
 
     @Operation(summary = "Api for updating User", description = "")

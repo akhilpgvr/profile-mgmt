@@ -21,6 +21,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
+import javax.management.QueryEval;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -75,6 +76,22 @@ public class DoctorService {
         }
     }
 
+    public GetDoctorResponse getDoctorAccount(boolean isMobileNo, String mobileNo, String doctorId) {
+
+        GetDoctorResponse response = new GetDoctorResponse();
+        if(isMobileNo) BeanUtils.copyProperties(getDoctorByMobileNo(mobileNo), response);
+        else BeanUtils.copyProperties(getDoctorByDoctorId(doctorId), response);
+        return response;
+    }
+
+    public List<GetDoctorResponse> getDoctorList() {
+
+
+        Query query = new Query();
+        List<DoctorEntity> doctors = mongoTemplate.find(query, DoctorEntity.class);
+        return doctors.stream().map(i-> modelMapper.map(i, GetDoctorResponse.class)).toList();
+    }
+
     public String createDoctorAccount(CreateDoctorRequest request) {
 
         String mobileNo = request.getMobileNo();
@@ -106,14 +123,6 @@ public class DoctorService {
         doctor.setLastUpdatedOn(LocalDateTime.now());
         doctorRepo.save(doctor);
         return "Account Created";
-    }
-
-    public GetDoctorResponse getDoctorAccount(boolean isMobileNo, String mobileNo, String doctorId) {
-
-        GetDoctorResponse response = new GetDoctorResponse();
-        if(isMobileNo) BeanUtils.copyProperties(getDoctorByMobileNo(mobileNo), response);
-        else BeanUtils.copyProperties(getDoctorByDoctorId(doctorId), response);
-        return response;
     }
 
     public String updateDoctorAccount(String mobileNo, UpdateDoctorRequest request) {

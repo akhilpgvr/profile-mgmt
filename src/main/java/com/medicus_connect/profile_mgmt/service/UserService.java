@@ -5,6 +5,7 @@ import com.medicus_connect.profile_mgmt.exception.UserAlreadyExistsException;
 import com.medicus_connect.profile_mgmt.exception.UserNotExistsException;
 import com.medicus_connect.profile_mgmt.model.dtos.request.CreateUserRequest;
 import com.medicus_connect.profile_mgmt.model.dtos.request.UpdateUserRequest;
+import com.medicus_connect.profile_mgmt.model.dtos.response.GetDoctorResponse;
 import com.medicus_connect.profile_mgmt.model.dtos.response.GetUserResponse;
 import com.medicus_connect.profile_mgmt.model.entitiles.UserEntity;
 import com.medicus_connect.profile_mgmt.repo.UserRepo;
@@ -15,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import static com.medicus_connect.profile_mgmt.Helper.generateUserId;
@@ -28,6 +30,9 @@ public class UserService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private DoctorService doctorService;
 
     public UserEntity getUserByMobileNo(String mobileNo) {
 
@@ -102,5 +107,11 @@ public class UserService {
         userRepo.save(user);
         log.info("user account updated for: {}", mobileNo);
         return "Account Updated";
+    }
+
+    public List<GetDoctorResponse> getDoctorsList() {
+
+        log.info("calling doctorService to fetch details of all doctors");
+        return doctorService.getDoctorList();
     }
 }
