@@ -21,7 +21,6 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
-import javax.management.QueryEval;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
