@@ -42,11 +42,11 @@ public class UserController {
 
     @Operation(summary = "Api for getting Doctor list to users", description = "")
     @GetMapping("/get/doctor-list")
-    public ResponseEntity<List<GetDoctorResponse>> getDoctorsList() {
+    public ResponseEntity<List<GetDoctorResponse>> getDoctorsList(@RequestParam(required = false) String docName, @RequestParam(required = false) String docSpec) {
 
-        //TODO Akhil -- add request including specialization, location and other details
+        //TODO Akhil -- add request including specialization, docName, location and other details
         log.info("Calling UserService for fetching all doctors");
-        return new ResponseEntity<>(userService.getDoctorsList(), HttpStatus.OK);
+        return new ResponseEntity<>(userService.getDoctorsList(docName, docSpec), HttpStatus.OK);
     }
 
     @Operation(summary = "Api for updating User", description = "")

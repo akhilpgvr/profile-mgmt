@@ -83,13 +83,28 @@ public class DoctorService {
         return response;
     }
 
-    public List<GetDoctorResponse> getDoctorList() {
-
+    public List<GetDoctorResponse> getDoctorList(String docName, String docSpec) {
 
         Query query = new Query();
+
+        // Use regex for partial or case-insensitive match
+        if (docName != null && !docName.isEmpty()) {
+            query.addCriteria(Criteria.where("doctorInfo.name")
+                    .regex(".*" + docName + ".*", "i"));  // "i" for case-insensitive
+        }
+
+        if (docSpec != null && !docSpec.isEmpty()) {
+            query.addCriteria(Criteria.where("department")
+                    .regex(".*" + docSpec + ".*", "i"));  // partial and case-insensitive
+        }
+
         List<DoctorEntity> doctors = mongoTemplate.find(query, DoctorEntity.class);
-        return doctors.stream().map(i-> modelMapper.map(i, GetDoctorResponse.class)).toList();
+
+        return doctors.stream()
+                .map(i -> modelMapper.map(i, GetDoctorResponse.class))
+                .toList();
     }
+
 
     public String createDoctorAccount(CreateDoctorRequest request) {
 
@@ -108,6 +123,7 @@ public class DoctorService {
         DoctorEntity doctor = new DoctorEntity();
         doctor.setDoctorId(generateDocId(mobileNo));
         doctor.setMobileNo(mobileNo);
+        doctor.setDepartment(request.getDepartment());
         doctor.setHaveRegNo(request.getHaveRegNo());
         if(request.getHaveRegNo().equalsIgnoreCase("Y")) doctor.setRegNo(request.getRegNo());
         doctor.setDoctorInfo(request.getDoctorInfo());

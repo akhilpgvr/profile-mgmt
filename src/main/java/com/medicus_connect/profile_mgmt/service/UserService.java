@@ -109,9 +109,9 @@ public class UserService {
         return "Account Updated";
     }
 
-    public List<GetDoctorResponse> getDoctorsList() {
+    public List<GetDoctorResponse> getDoctorsList(String docName, String docSpec) {
 
-        log.info("calling doctorService to fetch details of all doctors");
-        return doctorService.getDoctorList();
+        log.info("calling doctorService to fetch details of all doctors with similarities from the user input");
+        return doctorService.getDoctorList(docName, docSpec);
     }
 }
