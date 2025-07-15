@@ -224,4 +224,16 @@ public class DoctorService {
                 .map(i -> modelMapper.map(i, GetSlotsResponse.class))
                 .toList();
     }
+
+    public String deleteDoctorAccount(String mobileNo) {
+
+        log.info("Deleting doctor registered with mobile number: {}", mobileNo);
+        try{
+            doctorRepo.deleteByMobileNo(mobileNo);
+        }
+        catch (Exception ex){
+            throw new DoctorNotExistsException("doctor not exits for "+mobileNo);
+        }
+        return "OK";
+    }
 }

@@ -1,4 +1,4 @@
-package com.medicus_connect.doctor_booking.configuration;
+package com.medicus_connect.profile_mgmt.configuration;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
@@ -13,8 +13,8 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .info(new Info().title("doctor-booking application")
-                        .description("API for demonstrating booking management")
+                .info(new Info().title("Profile Management Service for Medicus Connect")
+                        .description("API for demonstrating profile management management")
                         .version("v1.0")
                         .contact(new Contact().name("akhil").email("akhilpgvr@gmail.com"))
                         .license(new License().name("Apache 2.0").url("http://springdoc.org")));

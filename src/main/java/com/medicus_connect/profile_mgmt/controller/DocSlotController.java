@@ -36,11 +36,4 @@ public class DocSlotController {
         log.info("Calling doctorService to get all slot for {}", mobileNo);
         return new ResponseEntity<>(doctorService.getSlotOfMonth(mobileNo, month), HttpStatus.OK);
     }
-
-    @Operation(summary = "", description = "")
-    @DeleteMapping("/delete")
-    public ResponseEntity<String> deleteSlot(@RequestParam String mobileNo){
-        log.info("Calling doctorService to delete a slot for {}", mobileNo);
-        return new ResponseEntity<>("", HttpStatus.OK);
-    }
 }

@@ -43,4 +43,11 @@ public class DoctorController {
         log.info("Calling DoctorService for updating an account for: {}", mobileNo);
         return new ResponseEntity<>(doctorService.updateDoctorAccount(mobileNo, updateDoctorRequest), HttpStatus.OK);
     }
+
+    @Operation(summary = "", description = "")
+    @DeleteMapping("/delete")
+    public ResponseEntity<String> deleteSlot(@RequestParam String mobileNo){
+        log.info("Calling doctorService to delete a slot for {}", mobileNo);
+        return new ResponseEntity<>(doctorService.deleteDoctorAccount(mobileNo), HttpStatus.OK);
+    }
 }

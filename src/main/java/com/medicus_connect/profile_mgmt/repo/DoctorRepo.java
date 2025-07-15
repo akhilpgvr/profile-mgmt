@@ -12,4 +12,6 @@ public interface DoctorRepo extends MongoRepository<DoctorEntity, String> {
     Optional<DoctorEntity> findByMobileNo(String mobileNo);
 
     Optional<DoctorEntity> findByDoctorId(String doctorId);
+
+    void deleteByMobileNo(String mobileNo);
 }
