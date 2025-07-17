@@ -29,7 +29,7 @@ public class DocSlotController {
         return new ResponseEntity<>(doctorService.addDocSlot(docSlotRequest), HttpStatus.OK);
     }
 
-    @Operation(summary = "", description = "")
+    @Operation(summary = "Api to get appointments of a doctor for the given month", description = "")
     @GetMapping("/get/month")
     public ResponseEntity<List<GetSlotsResponse>> getSlotOfMonth(@RequestParam String mobileNo, @RequestParam int month) {
 

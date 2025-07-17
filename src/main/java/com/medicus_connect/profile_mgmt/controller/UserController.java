@@ -40,7 +40,7 @@ public class UserController {
         return new ResponseEntity<>(userService.getUserAccount(true, mobileNo, null), HttpStatus.OK);
     }
 
-    @Operation(summary = "Api for getting Doctor list to users", description = "")
+    @Operation(summary = "Api for getting Doctor list based on doctor name or specialization", description = "")
     @GetMapping("/get/doctor-list")
     public ResponseEntity<List<GetDoctorResponse>> getDoctorsList(@RequestParam(required = false) String docName, @RequestParam(required = false) String docSpec) {
 
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @Operation(summary = "Api for updating User", description = "")
-    @PutMapping("/update/user")
+    @PutMapping("/update")
     public ResponseEntity<String> updateUserAccount(@RequestParam String mobileNo, @RequestBody UpdateUserRequest updateUserRequest) {
 
         log.info("Calling UserService for updating an account for: {}", mobileNo);
